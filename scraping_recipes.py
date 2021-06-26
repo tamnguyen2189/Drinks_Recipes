@@ -3,7 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-# Create function to scrape web
+# Create function to scrape 1st web
+url = 'https://www.thespruceeats.com/'
 # Get image of drink
 def scrape_image(url):
     """ Scrape image of the drink in recipe
@@ -151,3 +152,75 @@ def extract_recipes_all_category(url):
         data.append(sub_data)
 
     return data
+
+#########
+
+# Create function to scrape 2nd web
+url = 'https://www.allrecipes.com/recipes/134/drinks/coffee/'
+
+# Scraping only recipe
+def scrape_recipe(url):
+    """ Scrape the ingredient of normal recipe
+        Input: recipe url
+        Output: list of ingredients
+    """
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    # articles = soup.find('section', {'class':'comp section--fixed-width section--ingredients section'})
+    content = soup.find_all('li',{'class': 'ingredients-item'})
+    ingredient = []
+    for i in content:
+        text = i.span.text
+        text = text.strip('\n')
+        ingredient.append(text)
+    return ingredient
+
+# Scraping recipes in category
+def extract_category_recipe(url):
+    """ Extract info from all recipes of each category
+        Input: url - use scrape_recipe_parts()
+        Output: info of recipes, saved as list of dictionary.
+    """
+    
+    data = []
+    
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    info = soup.find_all('div', {'class': 'component card card__category'})
+    data = []
+    for i in info:
+        d = {}
+        try:
+            d['drink_name'] = i.a['title'] 
+            d['recipe'] = scrape_recipe(i.a['href'])
+            d['recipe_url'] = i.a['href']
+            d['url_of_image'] = i.a.div['data-src']
+        
+        except Exception as e:
+            print(i.a['href'])
+        data.append(d)
+
+    return data
+
+# Creat function to scrape whole the website
+def extract_recipes_all_category(url):
+    """ Extract info from all recipes of website
+        Input: web url
+        Output: info of recipes, saved as list of dictionary.
+    """
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    content = soup.find_all('li',{'class': 'carouselNav__listItem recipeCarousel__listItem'})
+    
+    data = []
+    for link in content:
+        sub_data = extract_category_recipe(link.a['href'])
+        data.append(sub_data)
+
+    return data
+
+# Save data
+data = []
+path = 'C:/Users/pc/Desktop/my_git/final_project/recipes'
+items = pd.DataFrame(data = data, columns = data[0].keys())
+items.to_csv(path + "/recipe_name.csv", index=False)
