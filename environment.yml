@@ -13,13 +13,13 @@ dependencies:
   - botocore=1.12.67=py37_0
 #   - ca-certificates=2021.5.30=h5b45459_0
   - cachetools=4.2.2=pyhd3eb1b0_0
-  - certifi=2021.5.30=py37h03978a9_0
+#   - certifi=2021.5.30=py37h03978a9_0
 #   - coverage=5.5=py37h2bbff1b_2
 #   - cryptography=3.1.1=py37h7a1dbc1_0
 #   - cython=0.29.23=py37hd77b12b_0
   - decorator=4.4.2=py_0
 #   - docutils=0.16=py37_1
-  - gensim=3.8.0=py37hf9181ef_0
+#   - gensim=3.8.0=py37hf9181ef_0
   - google-api-core=1.25.1=pyhd3eb1b0_0
   - google-auth=1.28.0=pyhd3eb1b0_0
   - google-cloud-core=1.7.0=pyhd3eb1b0_0
