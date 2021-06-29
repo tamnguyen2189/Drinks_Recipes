@@ -51,6 +51,7 @@ dependencies:
   - numpy-base=1.19.1=py37ha3acd2a_0
   - openssl=1.1.1k=h8ffe710_0
   - pandas=1.2.4=py37hf11a4ad_0
+  - pip
   - pyasn1=0.4.8=py_0
   - pyasn1-modules=0.2.8=py_0
   - pycparser=2.20=py_2
