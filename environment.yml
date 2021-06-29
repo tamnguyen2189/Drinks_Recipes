@@ -140,17 +140,17 @@ dependencies:
     - watchdog==2.1.2
     - webencodings==0.5.1
     - widgetsnbextension==3.5.1
-    - async-timeout==3.0.1=py37haa95532_0
-    - aiohttp==3.7.4=py37h2bbff1b_1
-    - cython==0.29.23=py37hd77b12b_0  
-    - cryptography==3.1.1=py37h7a1dbc1_0
-    - ca-certificates==2021.5.30=h5b45459_0
-    - certifi==2021.5.30=py37h03978a9_0
-    - coverage==5.5=py37h2bbff1b_2
-    - gensim==3.8.0=py37hf9181ef_0
-    - google-crc32c==1.1.2=py37h2bbff1b_0
-    - googleapis-common-protos==1.53.0=py37h2eaa2aa_0
-    - grpcio==1.36.1=py37hc60d5dd_1
+    - async-timeout==3.0.1
+    - aiohttp==3.7.4
+    - cython==0.29.23
+    - cryptography==3.1.1
+    - ca-certificates==2021.5.30
+    - certifi==2021.5.30
+    - coverage==5.5
+    - gensim==3.8.0
+    - google-crc32c==1.1.2
+    - googleapis-common-protos==1.53.0
+    - grpcio==1.36.1
     - icc_rt==2019.0.0=h0cc432a_1
     - libcrc32c==1.1.1=ha925a31_2
     - libprotobuf==3.14.0=h23ce68f_0
