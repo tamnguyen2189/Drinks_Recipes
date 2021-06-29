@@ -82,7 +82,6 @@ dependencies:
   - yarl=1.5.1=py37he774522_0
   - zipp=3.4.1=pyhd8ed1ab_0
   - zlib=1.2.11=h62dcd97_4
-  - pip
   - pip:
     - altair==4.1.0
     - argon2-cffi==20.1.0
