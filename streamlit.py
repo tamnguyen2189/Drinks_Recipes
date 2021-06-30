@@ -28,16 +28,22 @@ st.markdown('Just for you')
 st.image('images/european-specialty-coffee-market-by-pointbleu-design-blog.jpg', use_column_width ='always')
 
 # Load data
-path = r'C:/Users/pc/Desktop/my_git/final_project/recipes/clean_recipe.csv'
+# path = r'C:/Users/pc/Desktop/my_git/final_project/recipes/clean_recipe.csv'
+path = r'tamnguyen2189/drinks_recipes/master/clean_recipe.csv'
 frame = pd.read_csv(path, index_col=None, header=0, encoding='utf-8')
 df = frame.copy()
 
 ##########
 # Load LDA model, corpus, dictionary:
-lda_model_path = 'C:/Users/pc/Desktop/my_git/final_project/model/lda_5.model'
-corpus_path = 'C:/Users/pc/Desktop/my_git/final_project/model/corpus.pkl'
-dictionary_path = 'C:/Users/pc/Desktop/my_git/final_project/model/dict.pkl'
-nbrs_path = 'C:/Users/pc/Desktop/my_git/final_project/model/nbrs_5.pkl'
+# lda_model_path = 'C:/Users/pc/Desktop/my_git/final_project/model/lda_5.model'
+# corpus_path = 'C:/Users/pc/Desktop/my_git/final_project/model/corpus.pkl'
+# dictionary_path = 'C:/Users/pc/Desktop/my_git/final_project/model/dict.pkl'
+# nbrs_path = 'C:/Users/pc/Desktop/my_git/final_project/model/nbrs_5.pkl'
+
+lda_model_path = 'tamnguyen2189/drinks_recipes/master/model/lda_5.model'
+corpus_path = 'tamnguyen2189/drinks_recipes/master/model/corpus.pkl'
+dictionary_path = 'tamnguyen2189/drinks_recipes/master/model/dict.pkl'
+nbrs_path = 'tamnguyen2189/drinks_recipes/master/model/nbrs_5.pkl'
 
 lda_model = gensim.models.ldamodel.LdaModel.load(lda_model_path)
 corpus = pickle.load(open(corpus_path, 'rb'))
@@ -45,7 +51,7 @@ dictionary = pickle.load(open(dictionary_path, 'rb'))
 nbrs = pickle.load(open(nbrs_path, 'rb'))
 
 # Load Doc2Vec trained model:
-model_path = 'C:/Users/pc/Desktop/my_git/final_project/model/doc2vecmodel_final.mod'
+model_path = 'tamnguyen2189/drinks_recipes/master/model/doc2vecmodel_final.mod'
 model = Doc2Vec.load(model_path) 
 
 ##########
