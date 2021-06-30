@@ -183,7 +183,7 @@ dependencies:
     - win_inet_pton
 #     - winpty
     - wincertstore
-    - zlib
+#     - zlib
     - vc
     - vs2015_runtime
     - python
