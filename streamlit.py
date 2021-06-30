@@ -29,7 +29,7 @@ st.image('images/european-specialty-coffee-market-by-pointbleu-design-blog.jpg',
 
 # Load data
 # path = r'C:/Users/pc/Desktop/my_git/final_project/recipes/clean_recipe.csv'
-path = r'tamnguyen2189/drinks_recipes/master/clean_recipe.csv'
+path = 'clean_recipe.csv'
 frame = pd.read_csv(path, index_col=None, header=0, encoding='utf-8')
 df = frame.copy()
 
@@ -40,10 +40,10 @@ df = frame.copy()
 # dictionary_path = 'C:/Users/pc/Desktop/my_git/final_project/model/dict.pkl'
 # nbrs_path = 'C:/Users/pc/Desktop/my_git/final_project/model/nbrs_5.pkl'
 
-lda_model_path = 'tamnguyen2189/drinks_recipes/master/model/lda_5.model'
-corpus_path = 'tamnguyen2189/drinks_recipes/master/model/corpus.pkl'
-dictionary_path = 'tamnguyen2189/drinks_recipes/master/model/dict.pkl'
-nbrs_path = 'tamnguyen2189/drinks_recipes/master/model/nbrs_5.pkl'
+lda_model_path = 'lda_5.model'
+corpus_path = 'corpus.pkl'
+dictionary_path = 'dict.pkl'
+nbrs_path = 'nbrs_5.pkl'
 
 lda_model = gensim.models.ldamodel.LdaModel.load(lda_model_path)
 corpus = pickle.load(open(corpus_path, 'rb'))
