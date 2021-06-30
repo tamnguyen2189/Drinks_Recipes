@@ -181,7 +181,7 @@ dependencies:
 #     - yarl==1.5.1=py37he774522_0
     - icc_rt
     - win_inet_pton
-    - winpty
+#     - winpty
     - wincertstore
     - zlib
     - vc
