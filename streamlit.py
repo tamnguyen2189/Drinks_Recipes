@@ -51,7 +51,7 @@ dictionary = pickle.load(open(dictionary_path, 'rb'))
 nbrs = pickle.load(open(nbrs_path, 'rb'))
 
 # Load Doc2Vec trained model:
-model_path = 'tamnguyen2189/drinks_recipes/master/model/doc2vecmodel_final.mod'
+model_path = 'doc2vecmodel_final.mod'
 model = Doc2Vec.load(model_path) 
 
 ##########
