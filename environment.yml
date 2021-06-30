@@ -186,8 +186,8 @@ dependencies:
 #     - zlib
     - vc
 #     - vs2015_runtime
-    - python
-    - gensim
+#     - python
+#     - gensim
 #     - m2w64-gcc-libs
 #     - m2w64-gcc-libs-core
 #     - m2w64-gmp
