@@ -120,7 +120,7 @@ dependencies:
     - pyparsing==2.4.7
     - pyrsistent==0.17.3
     - pytz==2021.1
-    - pywinpty  #==1.1.1
+#     - pywinpty  #==1.1.1
     - requests==2.25.1
     - scikit-learn==0.24.2
     - scipy==1.6.3
@@ -147,36 +147,51 @@ dependencies:
 #     - ca-certificates==2021.5.30
 #     - certifi==2021.5.30
 #     - coverage==5.5
-    - gensim==3.8.0
+#     - gensim==3.8.0
 #     - google-crc32c==1.1.2
 #     - googleapis-common-protos==1.53.0
 #     - grpcio==1.36.1
-    - icc_rt==2019.0.0=h0cc432a_1
+#     - icc_rt==2019.0.0=h0cc432a_1
 #     - libcrc32c==1.1.1=ha925a31_2
 #     - libprotobuf==3.14.0=h23ce68f_0
 #     - mkl==2019.4=245
-    - m2w64-gcc-libs==5.3.0=7
-    - m2w64-gcc-libs-core==5.3.0=7
-    - m2w64-gmp==6.1.0=2
-    - msys2-conda-epoch==20160418=1
+#     - m2w64-gcc-libs==5.3.0=7
+#     - m2w64-gcc-libs-core==5.3.0=7
+#     - m2w64-gmp==6.1.0=2
+#     - msys2-conda-epoch==20160418=1
 #     - mkl-service==2.3.0=py37hb782905_0
 #     - mkl_fft==1.2.0=py37h45dec08_0
-    - m2w64-libwinpthread-git==5.0.0.4634.697f757=2
+#     - m2w64-libwinpthread-git==5.0.0.4634.697f757=2
 #     - multidict==5.1.0=py37h2bbff1b_2
-    - m2w64-gcc-libgfortran==5.3.0=6
+#     - m2w64-gcc-libgfortran==5.3.0=6
 #     - mkl_random==1.0.4=py37h343c172_0
 #     - numpy-base==1.19.1=py37ha3acd2a_0
 #     - openssl==1.1.1k=h8ffe710_0
-    - python==3.7.9=h60c2a47_0
+#     - python==3.7.9=h60c2a47_0
 #     - regex==2021.4.4=py37hcc03f2d_0
 #     - sqlite==3.35.4=h2bbff1b_0
 #     - setuptools==50.3.0=py37h9490d1a_1
-    - tornado==6.0.4=py37he774522_1
-    - win_inet_pton==1.1.0=py37_0
-    - winpty==0.4.3=4
-    - wincertstore==0.2=py37_0
-    - zlib==1.2.11=h62dcd97_4
-    - vc==14.2=h21ff451_1
-    - vs2015_runtime==14.27.29016=h5e58377_2
+#     - tornado==6.0.4=py37he774522_1
+#     - win_inet_pton==1.1.0=py37_0
+#     - winpty==0.4.3=4
+#     - wincertstore==0.2=py37_0
+#     - zlib==1.2.11=h62dcd97_4
+#     - vc==14.2=h21ff451_1
+#     - vs2015_runtime==14.27.29016=h5e58377_2
 #     - yarl==1.5.1=py37he774522_0
+    - icc_rt
+    - win_inet_pton
+    - winpty
+    - wincertstore
+    - zlib
+    - vc
+    - vs2015_runtime
+    - python
+    - gensim
+    - m2w64-gcc-libs
+    - m2w64-gcc-libs-core
+    - m2w64-gmp
+    - msys2-conda-epoch
+    - m2w64-libwinpthread-git
+    - m2w64-gcc-libgfortran
 prefix: C:\Users\pc\.conda\envs\demo_project
