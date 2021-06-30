@@ -185,13 +185,13 @@ dependencies:
     - wincertstore
 #     - zlib
     - vc
-    - vs2015_runtime
+#     - vs2015_runtime
     - python
     - gensim
-    - m2w64-gcc-libs
-    - m2w64-gcc-libs-core
-    - m2w64-gmp
-    - msys2-conda-epoch
-    - m2w64-libwinpthread-git
-    - m2w64-gcc-libgfortran
+#     - m2w64-gcc-libs
+#     - m2w64-gcc-libs-core
+#     - m2w64-gmp
+#     - msys2-conda-epoch
+#     - m2w64-libwinpthread-git
+#     - m2w64-gcc-libgfortran
 prefix: C:\Users\pc\.conda\envs\demo_project
