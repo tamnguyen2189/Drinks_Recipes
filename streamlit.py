@@ -35,11 +35,6 @@ df = frame.copy()
 
 ##########
 # Load LDA model, corpus, dictionary:
-# lda_model_path = 'C:/Users/pc/Desktop/my_git/final_project/model/lda_5.model'
-# corpus_path = 'C:/Users/pc/Desktop/my_git/final_project/model/corpus.pkl'
-# dictionary_path = 'C:/Users/pc/Desktop/my_git/final_project/model/dict.pkl'
-# nbrs_path = 'C:/Users/pc/Desktop/my_git/final_project/model/nbrs_5.pkl'
-
 lda_model_path = 'lda_5.model'
 corpus_path = 'corpus.pkl'
 dictionary_path = 'dict.pkl'
@@ -193,12 +188,6 @@ if topic == True:
         # Input and preprocess test doc
         result_vecs = doc_vecs(ingredients)
         distances, indices = nbrs.kneighbors(result_vecs)
-        # for i in indices[0]:
-        #     name = '[' + df.iloc[i]['drink_name'] + ']'
-        #     link = '(' + df.iloc[i]['recipe_url'] + ')'
-        #     st.write('Topic: ' + topic_dict[topic_recipe['topics'][i]])
-        #     st.markdown(name+link, unsafe_allow_html=True)
-        #     st.text('Recipe: ' + df.iloc[i]['recipe'])
         i = 0
         while i < len(indices[0]):
             for _ in range(len(indices[0])-1):
@@ -216,16 +205,13 @@ if topic == True:
     else:
         st.warning('You have to input at least one ingredient')
 
-else:
-
-    
+else:  
     # Check similar vector
     if len(recipe_opt) == 0:
         # Display recipes have found
         st.markdown('** With your ingredients you can find: **')
         if len(ingredients[0]) > 0:
-            recipe_list, drink_name, recipe_url, image_url = searching_recipe(ingredients,df)
-            
+            recipe_list, drink_name, recipe_url, image_url = searching_recipe(ingredients,df)      
             if len(recipe_list)!=0:
                 st.write(len(recipe_list),'`recipes`')
                 for i in range(len(recipe_list)):
@@ -233,7 +219,6 @@ else:
                     link = '[' + drink_name[i] + ']' + '(' + recipe_url[i] + ')'
                     st.markdown(link, unsafe_allow_html=True)
                     st.text(f'Recipe: {recipe_list[i]}')
-
             else:
                 st.write('Recipe not found')
         else:
@@ -243,8 +228,7 @@ else:
         test_doc = word_tokenize(recipe_opt[0])
         test_doc_vector = model.infer_vector(test_doc)
         similar_vetor = model.docvecs.most_similar(positive = [test_doc_vector])
-        
-
+    
         # Recommendation:
         i = 0
         while i < len(similar_vetor):
