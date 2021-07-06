@@ -29,7 +29,6 @@ Let's take a look at the content of the dataset. I saved recipes into many files
 ```ruby
 import pandas as pd
 import numpy as np
-import glob
 import re
 
 # Reading data: concatenate all recipes into one file
@@ -201,6 +200,7 @@ model.docvecs.most_similar(positive = [test_doc_vector])
 
 ## 5. Latent Dirichlet Allocation model (LDA)
 ![LDA](/images/LDA.jpg)
+
 The second model I use here is LDA model.
 It will divide the documents in a number of clusters according to word usage, to find the topics in these document.
 
@@ -224,7 +224,7 @@ nltk.download('wordnet')
 ```
 **Remove Stopwords, Make Lemmatize**
 
-Let’s define the functions to remove the stopwords, make lemmatization and call them sequentially.
+Let’s define the functions to remove the stopwords, make lemmatization and call them sequentially. I also creat a new column *'no_stop'* that contains recipes after cleaning stop words
 ```ruby
 # Create stop_words:
 stop_words = stopwords.words('english')
@@ -342,6 +342,8 @@ LDAvis_prepared
 
 ## 6. Nearest Neighbors
 
+Here we're going to convert each recipe in dataset to feature vectors
+
 ```ruby
 # Document:
 text_array = df_clean['no_stop']
@@ -356,13 +358,15 @@ recipe_vecs[1]
 ```
 ![recipe_vecs](/images/recipe_vecs.jpg)
 
+Then we use Nearest Neighbors to find Top 5 recipes similar to  input recipe and which topic they belong to. The k here is the number of nearest neighbor u want, because I want results are Top 5 nearest recipes so I'll choose k = 5
+
 ```ruby
 # Nearest Neighbors:
 nbrs = NearestNeighbors(n_neighbors=5).fit(recipe_vecs)
 nbrs_path = '/content/gdrive/MyDrive/Colab Notebooks/Final Project/Model/nbrs_5.pkl'
 pickle.dump(nbrs, open(nbrs_path, 'wb'))
 ```
-
+Let's define the function to preprocess the input recipe and convert it to vector.
 ```ruby
 # Function to lemmatize for string input test doc
 def lemma_stop_input(row):
@@ -390,6 +394,7 @@ def doc_vecs(test_array):
         result_vecs.append(topic_vec)
     return result_vecs
 ```
+At this step, we will take a random recipe as a test document, then preprocess it
 ```ruby
 # Input and preprocess test doc
 test_array = text_array[5]
@@ -400,6 +405,7 @@ result_vecs
 ```
 ![result_vecs](/images/result_vecs.jpg)
 
+We need to creat a topics dictionary so we can categorize the topics. I'll base on the word frequency of each topic to give name for these topics in dataset.
 ```ruby
 # Recipe vector & their topics:
 topic_recipe = pd.DataFrame(recipe_vecs)
@@ -417,7 +423,7 @@ topic_dict = {0: 'fruit_juice',
               3: 'cream_milk_coffee',
               4: 'spice'}
 ```
-
+We need to use the Nearest Neighbors model and its cosine similarity function to calculate distances and indices of those similar recipes, base on the test document vector.
 ```ruby
 # Find the nearest vector 
 distances, indices = nbrs.kneighbors(result_vecs)
@@ -432,6 +438,7 @@ topic_recipe.iloc[indices[0]]
 ```
 ![recommend_topic](/images/recommend_topic.jpg)
 
+Finally, let's see which topic the test document belongs to and top 5 similar recipes of it. 
 ```ruby
 # Check top 5 recommended topics and recipes informations:
 for i in indices[0]:
