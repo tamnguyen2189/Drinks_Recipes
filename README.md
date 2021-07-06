@@ -18,7 +18,7 @@ Please check the complete code in my notebook EDA.ipynb on GitHub
 
 In this project, I will build a Doc2Vec model and a LDA topic model from a dataset that I scraped from The Spruce Eats and All Recipes. 
 Then let use these model to find the most similar recipes to one we might like to use from the dataset, in order to recommend other things we could use.
-This dataset contains variety of topcis in drinks ingredients, like fruit, juice, milk, coffee...
+This dataset contains variety of topics in drinks ingredients, like fruit, juice, milk, coffee...
 ![Dataset](/images/dataset.jpg)
 
 ## 2. Reading and cleaning Data
