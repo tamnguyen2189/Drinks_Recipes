@@ -1,8 +1,8 @@
 # Your_Recipe
 ## Introduction
-Barista and bartender have to constantly develop new recipes to refresh their menu. Therefore, this project will help them solve that problem. It will bring more ideas and inspiration for your new drink.
+Baristas and bartenders have to develop new recipes to refresh their menu constantly. Therefore, this project will help them solve that problem. In addition, it will bring more ideas and inspiration for new and innovative drinks. 
 
-Your Recipe is an app, where you can input your ingredients and it will return delicious recipes base on the ingredients you have. The app also suggest other drinks similar to the one you selected. You can get many results at the same time.
+Your Recipe is an app where you can input ingredients, and it will return delicious recipes based on your selections. The app also suggests other similar drinks to expand upon your search results.
 ![Project Flow](/images/viber_image_2021-07-03_11-43-59.jpg)
 # Project Implementation
 1. Dataset
@@ -16,15 +16,13 @@ Please check the complete code in my notebook EDA.ipynb on GitHub
 *****
 ## 1. Dataset
 
-In this project, I will build a Doc2Vec model and a LDA topic model from a dataset that I scraped from The Spruce Eats and All Recipes. 
-Then let use these model to find the most similar recipes to one we might like to use from the dataset, in order to recommend other things we could use.
-This dataset contains variety of topics in drinks ingredients, like fruit, juice, milk, coffee...
+For this project, I will build a Doc2Vec model, and an LDA topic model using a dataset scraped from The Spruce Eats and All Recipes. This dataset contains various drink ingredients, such as fruit, juice, milk, coffee, etc. We can use these models to find the closest matching recipes from the dataset and recommend similar items. 
 ![Dataset](/images/dataset.jpg)
 
-## 2. Reading and cleaning Data
-**Reading data**
+## 2. Reading and Cleaning Data
+**Reading Data**
 
-Let's take a look at the content of the dataset. I saved recipes into many files csv, so we need to concatenate them first.
+Let's take a look at the content of the dataset. I saved recipes into many files csv, so first, we need to concatenate the files.
 
 ```ruby
 import pandas as pd
@@ -44,10 +42,9 @@ frame = pd.concat(all_files, axis=0, ignore_index=True)
 df = frame.copy()
 ```
 
-**Cleaning data**
+**Cleaning Data**
 
-Since I've scraped all informations I need, so we don't need to drop any columns. And we'll focus on the text data which are "drink_name" column and "recipe" column.
-But there are still some recipes that contain wrong data, duplicated data and NA data. So we need to drop all of them.
+Since I scraped all the information needed, we don't need to drop any columns. Therefore, we'll focus on the text data, including the *"drink_name"* column and *"recipe"* column. But, there are still some recipes that contain incorrect data, duplicated data, and NA data. So we need to drop all of them.
 ```ruby
 # Drop wrong data
 df.drop(df[df['recipe'] == '[]'].index, inplace= True)
@@ -61,9 +58,9 @@ df.dropna(axis=0, inplace=True)
 
 df_clean = df.copy() # Make a copy of data
 ```
-**Remove punctuation/lower casing**
+**Punctuation and Lowercasing**
 
-Next, let’s perform a simple preprocessing on the content of paper_text column to make them more amenable for analysis, and reliable results. To do that, we’ll use a regular expression to remove any punctuation, and then lowercase the text. We also need to drop some recipes that have error url of image
+Next, let's perform a simple preprocessing on the content of the paper_text column to make them more manageable for analysis and reliable results. To do that, we'll use a regular expression to remove any punctuation and then lowercase the text. We also need to drop some recipes that have any error URLs for the image.
 ```ruby
 # Function to clean recipes in dataset
 def clean_recipe(recipe):
@@ -87,9 +84,9 @@ df_clean.drop(df_clean[df_clean['url_of_image']=='/img/icons/generic-recipe.svg'
 ```
 ![Clean_data](/images/clean_data.jpg)
 
-**Saving data**
+**Saving Data**
 
-Remember to save the dataset after clean. So from now on, we can use this clean data to train the model.
+Remember to save the dataset after cleaning. So from now on, we can use this clean data to train the model.
 ```ruby
 # Save data for training after cleaning
 data = df_clean
@@ -97,8 +94,8 @@ path = '/content/gdrive/MyDrive/Colab Notebooks/Final Project/Recipes'
 data.to_csv(path + "/clean_recipe_training.csv", index=False)
 ```
 
-## 3. Searching recipe by pandas
-At this part, I use pandas to find all recipes that contain exactly each ingredient user input. Let define the function for searching:
+## 3. Searching Recipe by Pandas
+At this step, I use pandas to find all recipes that contain the exact ingredients for each user input. But, first, let us define the function for searching:
 ```ruby
 # Function to search recipes in dataset
 def searching_recipe(ingredients, data):
@@ -129,20 +126,21 @@ def searching_recipe(ingredients, data):
 ```
    
 ## 4. Doc2Vec model
-The first model I use inside Your Recipe is Doc2Vec model. It’s a modified version of Word2Vec and is used to represented document into numeric value.
+The first model I used inside Your Recipe is the Doc2Vec model, a modified version of Word2Vec and is used to represent documents in numeric values. 
 
 There are multiple methods to change the text into vectors:
 - Label Encoding
 - Custom binary Encoding
 - One-Hot Encoding
 
-But these methods will lose the context of a given text. Doc2Vec can solve this problem by creating vectors out of a document, independent of the document length.
+Except, these methods will lose the context of a given text. Doc2Vec can solve this problem by creating vectors out of a document, independent of the document length. 
 ![Doc2Vec](/images/doc2vec.jpg)
 
-Distributed Memory (DM) model will guess the target word from its neighboring words (context words). But document doesn’t have logical structure like word. To solve this problem, it add another vector called document ID
-Distributed Bag of Words (DBOW) model which guesses the context words from a target word 
+Distributed Memory (DM) model will guess the target word from its neighboring words (context words). But the document doesn't have a logical structure like a word. So to solve this problem, it adds another vector called the document ID.
 
-Doc2vec model takes the document ID  as the input and tries to predict randomly sampled words from the document. Then, we can use *most_similar* function to find most similar recipe from dataset base on input doc
+Distributed Bag of Words (DBOW) model, which guesses the context words from a target word.
+
+Doc2vec model takes the document ID as the input and tries to predict randomly sampled words from the document. Then, we can use *most_similar* function to find most similar Recipe from dataset base on input doc.
 
 ```ruby
 import nltk
@@ -155,8 +153,8 @@ from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
 *Getting training data*
 
-We define our list of sentences. Here is the column of recipe. It's good to use a list of sentences for easier processing of each sentence.
-We will also keep a tokenized version of these sentences
+We define our list of sentences. Here is the column of recipes. It's good to use a list of sentences for easier processing of each sentence. 
+We will also keep a tokenized version of these sentences.
 
 ```
 # Find vector of chosen recipe
@@ -176,14 +174,14 @@ tagged_data = [TaggedDocument(d, [i]) for i, d in enumerate(tokenized_sent)]
 
 *Training model*
 
-Let's initialize the model and train it
+Let's initialize the model and train it:
 ```ruby
 # Train doc2vec model
 model = Doc2Vec(tagged_data, vector_size = 50, window = 2, min_count = 2, epochs = 30)
 ```
 Now, we give a test sentence. The infer_vector function returns the vectorized form of test sentence.
 
-In the end, let's call the most_similar function, which returns top most similar sentences and its indices throughout the document.
+In the end, let's call the most_similar function, which returns topmost similar sentences and their indices throughout the document.
 
 ```
 # Input test sentence
@@ -202,9 +200,9 @@ model.docvecs.most_similar(positive = [test_doc_vector])
 ![LDA](/images/LDA.jpg)
 
 The second model I use here is LDA model.
-It will divide the documents in a number of clusters according to word usage, to find the topics in these document.
+It divides the documents into several clusters according to word usage to find the topics in these documents.
 
-LDA model also present the probabilistic distribution of Topics in Document
+LDA model also present the probabilistic distribution of Topics in Document.
 
 ```ruby
 # Import libraries
@@ -222,9 +220,9 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 nltk.download('wordnet')
 ```
-**Remove Stopwords, Make Lemmatize**
+**Remove Stopwords & Make Lemmatize**
 
-Let’s define the functions to remove the stopwords, make lemmatization and call them sequentially. I also creat a new column *'no_stop'* that contains recipes after cleaning stop words
+Let’s define the functions to remove the stopwords, make lemmatization and call them sequentially. I also creat a new column, *'no_stop'* that contains recipes after cleaning stop words
 ```ruby
 # Create stop_words:
 stop_words = stopwords.words('english')
@@ -246,14 +244,13 @@ df_clean['no_stop'] = df_clean['recipe'].apply(lemma_stop)
 
 _*Bigram and Trigram Models*_
 
-Bigrams are two words frequently occurring together in the document. Trigrams are 3 words frequently occurring.
-Gensim’s Phrases model can build and implement the bigrams, trigrams, quadgrams and more. The two important arguments to Phrases are min_count and threshold.
+Bigrams are two words frequently occurring together in the document; Trigrams are three words frequently occurring. Gensim Phrases model can build and implement the bigrams, trigrams, quadgrams, and more. The two essential arguments to Phrases are min_count and threshold.
 
-The higher the values of these param, the harder it is for words to be combined. Let's define the function for Bigram and Trigram models
+The higher the values of these param, the harder it is for words to be combined. Let's define the function for Bigram and Trigram models.
 
 _*Corpus and Dictionary*_
 
-The two main inputs to the LDA topic model are the dictionary(id2word) and the corpus. Let’s create them.
+The two main inputs to the LDA topic model are the dictionary(id2word) and the corpus. Let’s create them:
 ```ruby
 # Phrase modeling: Bi-grams and Tri-grams
 def docs_with_grams(docs):
@@ -302,11 +299,11 @@ print(corpus[:1])
 ```
 ![Data_transform](/images/data_transform.jpg)
 
-Gensim creates a unique id for each word in the document. The produced corpus shown above is a mapping of (word_id, word_frequency).
+Gensim creates a unique id for each word in the document. Thus, the produced corpus shown above is a mapping of (word_id, word_frequency).
 
 **Base Model**
 
-We have everything required to train the base LDA model. In addition to the corpus and dictionary, you need to provide the number of topics as well. First, I'll choose 9 topics.
+We have everything required to train the base LDA model. In addition to the corpus and dictionary, you need to provide the number of topics as well. First, I'll choose 9 topics:
 ```ruby
 # Build LDA model
 lda_model = gensim.models.LdaMulticore(corpus=corpus,
@@ -317,7 +314,7 @@ lda_model = gensim.models.LdaMulticore(corpus=corpus,
                                        passes=10,
                                        per_word_topics=True)
 ```
-**View the topics in LDA model**
+**View Topics in LDA model**
 
 The above LDA model is built with 10 different topics where each topic is a combination of keywords and each keyword contributes a certain weightage to the topic.
 You can see the keywords for each topic and the weightage(importance) of each keyword using lda_model.print_topics()
@@ -328,10 +325,10 @@ doc_lda = lda_model[corpus]
 ```
 ![Topic](/images/topic.jpg)
 
-After we have the base model, let fine tune the model then pick the number of topic we should use for model
-At the result of tunning model, I'll divine the data into 5 topics for analysing
+After we have the base model, let's fine-tune the model then pick the topic we should use.
+Finally, as a tuning model, I'll define the data into five topics for analysis.
 
-Visualize the topic
+Visualize the topic:
 ```
 # Visualize the topics
 pyLDAvis.enable_notebook()
@@ -342,7 +339,7 @@ LDAvis_prepared
 
 ## 6. Nearest Neighbors
 
-Here we're going to convert each recipe in dataset to feature vectors
+Here we're going to convert each recipe in dataset to feature vectors:
 
 ```ruby
 # Document:
@@ -358,7 +355,7 @@ recipe_vecs[1]
 ```
 ![recipe_vecs](/images/recipe_vecs.jpg)
 
-Then we use Nearest Neighbors to find Top 5 recipes similar to  input recipe and which topic they belong to. The k here is the number of nearest neighbor u want, because I want results are Top 5 nearest recipes so I'll choose k = 5
+Then, we use Nearest Neighbors to find the Top 5 recipes similar to the recipe input for each topic. The k here is the number of nearest-neighbor you want because I want results are Top 5 nearest recipes, so I'll choose k = 5
 
 ```ruby
 # Nearest Neighbors:
@@ -394,7 +391,7 @@ def doc_vecs(test_array):
         result_vecs.append(topic_vec)
     return result_vecs
 ```
-At this step, we will take a random recipe as a test document, then preprocess it
+At this step, we will take a random recipe as a test document, then preprocess it.
 ```ruby
 # Input and preprocess test doc
 test_array = text_array[5]
@@ -405,7 +402,7 @@ result_vecs
 ```
 ![result_vecs](/images/result_vecs.jpg)
 
-We need to creat a topics dictionary so we can categorize the topics. I'll base on the word frequency of each topic to give name for these topics in dataset.
+We need to create a topics dictionary so we can categorize the topics. I'll base on the word frequency of each topic to give a name for these topics in the dataset.
 ```ruby
 # Recipe vector & their topics:
 topic_recipe = pd.DataFrame(recipe_vecs)
@@ -423,7 +420,7 @@ topic_dict = {0: 'fruit_juice',
               3: 'cream_milk_coffee',
               4: 'spice'}
 ```
-We need to use the Nearest Neighbors model and its cosine similarity function to calculate distances and indices of those similar recipes, base on the test document vector.
+We need to use the Nearest Neighbors model and its cosine similarity function to calculate distances and indices of those similar recipes base on the test document vector.
 ```ruby
 # Find the nearest vector 
 distances, indices = nbrs.kneighbors(result_vecs)
@@ -438,7 +435,7 @@ topic_recipe.iloc[indices[0]]
 ```
 ![recommend_topic](/images/recommend_topic.jpg)
 
-Finally, let's see which topic the test document belongs to and top 5 similar recipes of it. 
+Finally, let's see which topic the test document belongs to and the Top 5 similar recipes.
 ```ruby
 # Check top 5 recommended topics and recipes informations:
 for i in indices[0]:
