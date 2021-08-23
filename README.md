@@ -1,5 +1,7 @@
 # Your_Recipe
 ## Introduction
+Demo link: https://share.streamlit.io/tamnguyen2189/drinks_recipes/streamlit.py
+
 Baristas and bartenders have to develop new recipes to refresh their menu constantly. Therefore, this project will help them solve that problem. In addition, it will bring more ideas and inspiration for new and innovative drinks. 
 
 Your Recipe is an app where you can input ingredients, and it will return delicious recipes based on your selections. The app also suggests other similar drinks to expand upon your search results.
